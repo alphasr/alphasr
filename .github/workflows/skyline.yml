@@ -19,7 +19,11 @@ jobs:
       - name: Draw skyline
         env:
           GITHUB_TOKEN: ${{ secrets.SKYLINE_TOKEN || secrets.GITHUB_TOKEN }}
-        run: go run github.com/pinkpixel-dev/skyline@latest -theme neon -svg skyline.svg "${{ github.repository_owner }}"
+        run: |
+          JAN1="$(date -u +%Y)-01-01"
+          DAYS=$(( ( $(date -u +%s) - $(date -u -d "$JAN1" +%s) ) / 86400 ))
+          WEEKS=$(( ( DAYS + $(date -u -d "$JAN1" +%w) ) / 7 + 1 ))
+          go run github.com/pinkpixel-dev/skyline@latest -theme neon -weeks "$WEEKS" -svg skyline.svg "${{ github.repository_owner }}"
 
       - name: Publish to output branch
         env:
