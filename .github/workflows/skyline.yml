@@ -20,7 +20,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.SKYLINE_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
-          go run github.com/pinkpixel-dev/skyline@latest -theme matrix -svg skyline.svg "${{ github.repository_owner }}"
+          go run github.com/pinkpixel-dev/skyline@latest -theme crimson -svg skyline.svg "${{ github.repository_owner }}"
 
       - name: Publish to output branch
         env:
